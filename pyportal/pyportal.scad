@@ -4,7 +4,7 @@ box_length = 89;
 box_width = 65;
 top_height = 11;
 wall_ext_thickness = 2;
-model_version = "4";
+model_version = "7";
 
 module base() {
   difference() {
@@ -54,14 +54,14 @@ module holes_spacers() {
 
 module holes_ports() {
   // sdcard 
-  translate([box_length+wall_ext_thickness-3,20, -1])
+  translate([box_length+wall_ext_thickness-2,22, -1])
     color("#ff0000")
-    cube([wall_ext_thickness+5,20,box_height+5]);
+    cube([wall_ext_thickness+5,18,box_height+5]);
 
     // microusb
-//  translate([box_length+wall_ext_thickness-1,5, 2+3])
-//    color("#ff0000")
-//    cube([wall_ext_thickness+2,35,box_height]);
+  translate([box_length+wall_ext_thickness-1,7, 2+3])
+    color("#ff0000")
+    cube([wall_ext_thickness+2,33,box_height]);
 }
 
 module VersionNum() {
@@ -81,24 +81,41 @@ module VersionNumTop() {
 module box_top() {
   difference() {
     base_top();
-    translate([2,6,-1])
-      cube([box_length-9, box_width-8, top_height+2]);
+    translate([2,8,-1])
+      cube([box_length-8, box_width-12, top_height+2]);
+    // usb and sdcard
+    translate([-1,8,5])
+      color("#ff0000")
+      cube([4, 32, 10]);
     VersionNumTop();
   }
   translate([9,2,0])
-    cube([2, box_width, 3]);
+    cube([2, box_width, 5]);
   translate([9,2,0])
     cube([4, box_width, 1]);
-
+  translate([2,47,0])
+    cube([10, 15, 1]);
 
 }
 
-//difference() {
-//  base();
-//  holes_spacers();
-//  holes_ports();
-//  VersionNum();
-//}
+module ClipHoles() {
+  ClipGap = 60;
+  ClipHeight = 30;
+  translate([(box_length-ClipGap)/2,20,-1])
+    color("#ff0000")
+    cube([2,ClipHeight, 4]);
+  translate([(box_length-ClipGap)/2+ClipGap,20,-1])
+    color("#ff0000")
+    cube([2,ClipHeight, 4]);
+}
+
+difference() {
+  base();
+  holes_spacers();
+  holes_ports();
+  ClipHoles();
+  VersionNum();
+}
 
 translate([0,box_width + 20,0])
   box_top();
