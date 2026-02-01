@@ -54,14 +54,14 @@ module holes_spacers() {
 
 module holes_ports() {
   // sdcard 
-  translate([box_length+wall_ext_thickness-2,22, -1])
+  translate([box_length+wall_ext_thickness-2,24, -1])
     color("#ff0000")
-    cube([wall_ext_thickness+5,18,box_height+5]);
+    cube([wall_ext_thickness+5,16,box_height+5]);
 
     // microusb
-  translate([box_length+wall_ext_thickness-1,7, 2+3])
+  translate([box_length+wall_ext_thickness-1,8, 2+3])
     color("#ff0000")
-    cube([wall_ext_thickness+2,33,box_height]);
+    cube([wall_ext_thickness+2,32,box_height]);
 }
 
 module VersionNum() {
